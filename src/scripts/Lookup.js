@@ -230,7 +230,7 @@ class LookupSearch extends Component {
           onMenuItemClick={ this.onMenuItemClick.bind(this) }
           onBlur={ this.onInputBlur.bind(this) }
         >
-          { scopes.map((scope) => <DropdownMenuItem key={ scope.value } { ...scope } />) }
+          { scopes.map((scope, index) => <DropdownMenuItem key={ `scope.value_${index}` } { ...scope } />) }
         </DropdownButton>
       </div>
     );
