@@ -138,7 +138,9 @@ class LookupSearch extends Component {
         this.props.onSubmit();
       } else {
         // if no search text, quit lookup search
-        this.props.onComplete();
+        if (this.props.onComplete) {
+          this.props.onComplete();
+        }
       }
     } else if (e.keyCode === 40) { // down key
       e.preventDefault();
@@ -149,7 +151,9 @@ class LookupSearch extends Component {
       e.stopPropagation();
       // quit lookup search (cancel)
       const cancel = true;
-      this.props.onComplete(cancel);
+      if (this.props.onComplete) {
+        this.props.onComplete(cancel);
+      }
     }
     if (this.props.onKeyDown) {
       this.props.onKeyDown(e);
@@ -353,11 +357,20 @@ class LookupCandidateList extends Component {
     );
   }
   renderCustomIcon(entry) {
+    const customClasses = classnames(
+      'slds-avatar',
+      { 'slds-avatar--circle': entry.context.img },
+      'slds-avatar--small'
+    );
     return (
       <div key={ entry.label } className={'custom_icon'}>
         <div className={'slds-show--inline-block'}>
-          <span className='slds-avatar slds-avatar--circle slds-avatar--small' >
-            <img src={ entry.context.img } alt='entry.context.title' />
+          <span className={customClasses} >
+            {
+              (entry.context.img)
+              ? (<img src={ entry.context.img } alt='entry.context.title' />)
+              : (<Icon category={ entry.category } icon={ entry.icon } size='small' />)
+            }
           </span>
         </div>
         <div
@@ -579,6 +592,7 @@ export default class Lookup extends Component {
       className
     );
     const formElemProps = { id, totalCols, cols, label, required, error, dropdown };
+
     return (
       <FormElement { ...formElemProps }>
         <div
@@ -588,7 +602,7 @@ export default class Lookup extends Component {
           data-typeahead={ false }
         >
           {
-            selected ?
+            (selected) ?
               <LookupSelection
                 id={ id }
                 ref='selection'
