@@ -6,7 +6,7 @@ import { registerStyle } from './util';
 export default class Tree extends React.Component {
   constructor(props) {
     super(props);
-    registerStyle('tree', [
+    registerStyle('slds-tree__item', [
       [
         '.slds-tree [aria-level="1"] > .slds-tree__item',
         '{ padding-left: 20px; line-height: 2.5rem; margin: 1px 0 1px 0; }',
