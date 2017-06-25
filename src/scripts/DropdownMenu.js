@@ -50,6 +50,7 @@ export class DropdownMenuItem extends Component {
       { 'slds-is-selected': selected },
       className
     );
+    delete props.picklist;
     return (
       <li className={ menuItemClass } disabled={ disabled }>
         <a
