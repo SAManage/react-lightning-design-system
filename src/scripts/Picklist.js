@@ -167,6 +167,8 @@ export default class Picklist extends Component {
     delete pprops.pageStart;
     delete pprops.useNone;
     delete pprops.noneText;
+    delete pprops.align;
+
     const picklistClassNames = classnames(className, 'slds-picklist');
     return (
       <div className={ picklistClassNames } aria-expanded={ this.state.opened }>
@@ -204,7 +206,7 @@ export default class Picklist extends Component {
 
   renderDropdown() {
     const {
-      menuSize, children, maxHeight, hasMore, pageStart, resetPageLoader, useNone, align } = this.props;
+      menuSize, children, maxHeight, hasMore, pageStart, resetPageLoader, useNone } = this.props;
     return (
       this.state.opened ?
         <DropdownMenu
@@ -217,10 +219,9 @@ export default class Picklist extends Component {
           pageStart={ pageStart }
           resetPageLoader={ resetPageLoader }
           onScroll={ this.onDropdownScroll.bind(this) }
-          align={align}
         >
-         { useNone && this.renderNoneMenuItem() }
-         { React.Children.map(children, this.renderPicklistItem.bind(this)) }
+          { useNone && this.renderNoneMenuItem() }
+          { React.Children.map(children, this.renderPicklistItem.bind(this)) }
         </DropdownMenu> :
         <div ref='dropdown' />
     );
@@ -266,7 +267,7 @@ Picklist.propTypes = {
   name: PropTypes.string,
   value: PropTypes.any,
   defaultValue: PropTypes.any,
-  selectedText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  selectedText: PropTypes.string,
   defaultOpened: PropTypes.bool,
   onChange: PropTypes.func,
   onValueChange: PropTypes.func,
@@ -284,7 +285,6 @@ Picklist.propTypes = {
   onScroll: PropTypes.func,
   useNone: PropTypes.bool,
   noneText: PropTypes.string,
-  align: PropTypes.oneOf(['left', 'center', 'right'])
 };
 
 
