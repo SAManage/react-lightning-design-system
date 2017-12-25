@@ -37,6 +37,7 @@ import Popover from './Popover';
 import Grid, { Row, Col } from './Grid';
 import Notification, { Alert, Toast } from './Notification';
 import PropTypes from './propTypesImport';
+import MultiPicklist, { MultiPicklistItem } from './MultiPicklist';
 
 const registerStyle = util.registerStyle;
 
@@ -62,4 +63,5 @@ export {
   TimeInput,
   Tree, TreeNode,
   util,
+  MultiPicklist, MultiPicklistItem,
 };

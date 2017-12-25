@@ -3,6 +3,7 @@ import {
   Button, Form, Input, Textarea, RadioGroup, Radio,
   CheckboxGroup, Checkbox, Select, Option,
   Picklist, PicklistItem,
+  MultiPicklist, MultiPicklistItem,
   DateInput,
   Lookup,
   FieldSet,
@@ -88,6 +89,18 @@ export default class FormExamples extends Component {
               <PicklistItem value={ 4 }>Item #4</PicklistItem>
               <PicklistItem value={ 5 }>Item #5</PicklistItem>
             </Picklist>
+            <MultiPicklist
+              label="MultiPicklist Label"
+              value={['1', '2']}
+              optionsSelectedText="multiple items are selected"
+              multiSelect
+            >
+              <MultiPicklistItem value={ '1' } label='Item #1' />
+              <MultiPicklistItem value={ '2' } label='Item #2' />
+              <MultiPicklistItem value={ '3' } label='Item #3' />
+              <MultiPicklistItem value={ '4' } label='Item #4' />
+              <MultiPicklistItem value={ '5' } label='Item #5' />
+            </MultiPicklist>
             <DateInput
               label='DateInput #1'
               defaultOpened={false}
