@@ -45,6 +45,7 @@
     "react-infinite-scroll-container": "^1.0.10",
     "react-onclickoutside": "6.7.1",
     "react-textarea-autosize": "6.0.0",
+    "react-relative-portal": "github:stomita/react-relative-portal#dist",
     "svg4everybody": "^2.0.3",
     "uuid": "^2.0.2"
   },

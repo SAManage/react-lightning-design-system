@@ -9,6 +9,7 @@ import SearchButtonField from './SearchButtonField';
 import Breadcrumbs from './Breadcrumbs';
 import ButtonGroup from './ButtonGroup';
 import DropdownButton from './DropdownButton';
+import DropdownButtonPortal from './DropdownButtonPortal';
 import DropdownMenu, { DropdownMenuItem, MenuItem } from './DropdownMenu';
 import Datepicker from './Datepicker';
 import Tab from './Tab';
@@ -45,7 +46,7 @@ export {
   Container, Grid, Row, Col, Popover,
   DateInput, Lookup, FieldSet,
   Datepicker,
-  DropdownButton, DropdownMenu, DropdownMenuItem, MenuItem,
+  DropdownButton, DropdownButtonPortal, DropdownMenu, DropdownMenuItem, MenuItem,
   Form, FormElement, Input, Textarea, Radio, RadioGroup, Checkbox, CheckboxGroup, Select, Option,
   Icon,
   Modal, ModalHeader, ModalContent, ModalFooter,
