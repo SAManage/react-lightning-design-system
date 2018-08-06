@@ -296,7 +296,7 @@ class LookupSearch extends Component {
           onClick={ this.onScopeMenuClick.bind(this) }
           onMenuItemClick={ this.onMenuItemClick.bind(this) }
           onBlur={ this.onInputBlur.bind(this) }
-          autoFocus
+          autoFocus={autoFocus}
         >
           { scopes.map((scope) => <DropdownMenuItem key={ scope.value } { ...scope } />) }
         </DropdownButton>
@@ -331,6 +331,7 @@ const ICON_ALIGNS = ['left', 'right'];
 LookupSearch.propTypes = {
   className: PropTypes.string,
   hidden: PropTypes.bool,
+  autoFocus: PropTypes.bool,
   searchText: PropTypes.string,
   scopes: PropTypes.arrayOf(
     PropTypes.shape({
