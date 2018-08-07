@@ -106,8 +106,11 @@ export default class SearchButtonField extends React.Component {
   }
 
   onKeyDown(event) {
-    if (event.keyCode === 13 && this.props.onEnter) {
-      this.props.onEnter(event);
+    const { closeOnEscape, onEnter } = this.props;
+    if (event.keyCode === 13 && typeof onEnter === 'function') {
+      onEnter(event);
+    } else if (closeOnEscape && event.keyCode === 27) {
+      this.onCancelClick();
     }
   }
 
@@ -136,6 +139,23 @@ export default class SearchButtonField extends React.Component {
 
   closeSearchIconRef(ref) {
     this.closeSearchIcon = ref;
+  }
+
+  renderSearchButton() {
+    const { expanded } = this.state;
+    const { searchButtonTitle, renderButton } = this.props;
+    const buttonProps = {
+      type: 'icon-border',
+      icon: 'search',
+      className: classnames('search-button-field-btn',
+        this.state.expanded ? 'expanded' : '',
+        this.state.collapsing ? 'collapsing' : ''),
+      onClick: this.onClick,
+      title: searchButtonTitle,
+      tabIndex: !expanded ? 0 : -1,
+    };
+
+    return typeof renderButton === 'function' ? renderButton(buttonProps) : <Button {...buttonProps} />;
   }
 
   render() {
@@ -173,20 +193,7 @@ export default class SearchButtonField extends React.Component {
             onClick={this.onCancelClick}
           />
         </div>
-        <Button
-          type='icon-border'
-          icon='search'
-          className={
-            classnames(
-              'search-button-field-btn',
-              this.state.expanded ? 'expanded' : '',
-              this.state.collapsing ? 'collapsing' : ''
-            )
-          }
-          onClick={this.onClick}
-          title={this.props.searchButtonTitle}
-          tabIndex={!expanded ? 0 : -1}
-        />
+        {this.renderSearchButton()}
         { this.props.children }
       </div>
     );
@@ -205,6 +212,8 @@ SearchButtonField.propTypes = {
   searchButtonTitle: PropTypes.string,
   children: PropTypes.node,
   value: PropTypes.string,
+  renderButton: PropTypes.func,
+  closeOnEscape: PropTypes.bool,
 };
 
 SearchButtonField.defaultProps = {
