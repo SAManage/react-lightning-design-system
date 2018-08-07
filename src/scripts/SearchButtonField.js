@@ -107,7 +107,7 @@ export default class SearchButtonField extends React.Component {
 
   onKeyDown(event) {
     const { closeOnEscape, onEnter } = this.props;
-    if (event.keyCode === 13 && typeof onEnter === 'function') {
+    if (event.keyCode === 13 && onEnter) {
       onEnter(event);
     } else if (closeOnEscape && event.keyCode === 27) {
       this.onCancelClick();
@@ -147,15 +147,17 @@ export default class SearchButtonField extends React.Component {
     const buttonProps = {
       type: 'icon-border',
       icon: 'search',
-      className: classnames('search-button-field-btn',
+      className: classnames(
+        'search-button-field-btn',
         this.state.expanded ? 'expanded' : '',
-        this.state.collapsing ? 'collapsing' : ''),
+        this.state.collapsing ? 'collapsing' : ''
+      ),
       onClick: this.onClick,
       title: searchButtonTitle,
       tabIndex: !expanded ? 0 : -1,
     };
 
-    return typeof renderButton === 'function' ? renderButton(buttonProps) : <Button {...buttonProps} />;
+    return renderButton ? renderButton(buttonProps) : <Button {...buttonProps} />;
   }
 
   render() {
