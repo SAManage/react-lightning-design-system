@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import Button from './Button';
 import { default as Picklist, PicklistItem } from './Picklist';
+import onClickOutside from 'react-onclickoutside';
 
 function createCalendarObject(date) {
   let d = moment(date, 'YYYY-MM-DD');
@@ -37,12 +38,12 @@ function cancelEvent(e) {
   e.stopPropagation();
 }
 
-export default class Datepicker extends Component {
+class Datepicker extends Component {
   constructor(props) {
     super(props);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     const targetDate = this.props.selectedDate || moment().format('YYYY-MM-DD');
     this.state = { targetDate };
-    this.blurTimer = this.isFocusMarkingRequired() ? (200) : (20);
     this.monthRef = this.monthRef.bind(this);
     this.datepickerRef = this.datepickerRef.bind(this);
   }
@@ -104,20 +105,16 @@ export default class Datepicker extends Component {
   }
 
   onMonthChange(month) {
-    this.setFocusMark();
     let targetDate = this.state.targetDate || this.props.selectedDate;
     targetDate = moment(targetDate).add(month, 'months').format('YYYY-MM-DD');
     this.setState({ targetDate });
   }
 
-  onBlur(e) {
-    setTimeout(() => {
-      if (!this.isFocusedInComponent()) {
-        if (this.props.onBlur) {
-          this.props.onBlur(e);
-        }
-      }
-    }, this.blurTimer);
+  // provided by 'react-onclickoutside'
+  handleClickOutside(e) {
+    if (this.props.onBlur) {
+      this.props.onBlur(e);
+    }
   }
 
   onKeyDown(e) {
@@ -128,39 +125,12 @@ export default class Datepicker extends Component {
     }
   }
 
-  setFocusMark() {
-    this.focusMark = true;
-  }
-
   focusDate(date) {
     const el = ReactDOM.findDOMNode(this.month);
     const dateEl = el.querySelector(`.slds-day[data-date-value="${date}"]`);
     if (dateEl) {
       dateEl.focus();
     }
-  }
-
-  isFocusMarkingRequired() {
-    return /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor) ||
-      /Firefox/.test(navigator.userAgent)
-  }
-
-  isFocusedInComponent() {
-    const rootEl = ReactDOM.findDOMNode(this);
-    let targetEl = document.activeElement;
-    let res = false;
-    if (this.isFocusMarkingRequired() && this.focusMark && targetEl === document.body) {
-      this.focusMark = false;
-      res = true;
-      const el = rootEl.querySelector('.slds-day');
-      if (el) { el.focus(); }
-    } else {
-      while (targetEl && targetEl !== rootEl) {
-        targetEl = targetEl.parentNode;
-      }
-      res = !!targetEl;
-    }
-    return res;
   }
 
   monthRef(ref) {
@@ -176,7 +146,7 @@ export default class Datepicker extends Component {
     const startYear = this.props.userCurrentYear ? moment().year() : cal.year;
     const minYear = startYear - this.props.backRange;
     return (
-      <div className='slds-datepicker__filter slds-grid' onClick={this.setFocusMark.bind(this)}>
+      <div className='slds-datepicker__filter slds-grid'>
         <div className='slds-datepicker__filter--month slds-grid slds-grid--align-spread slds-size--2-of-3'>
           <div className='slds-align-middle'>
             <Button
@@ -287,8 +257,6 @@ export default class Datepicker extends Component {
         className={ datepickerClassNames }
         ref={this.datepickerRef}
         aria-hidden={ false }
-        onClick={ this.setFocusMark.bind(this) }
-        onBlur={ this.onBlur.bind(this) }
         onKeyDown={ this.onKeyDown.bind(this) }
       >
         { this.renderFilter(cal) }
@@ -319,3 +287,5 @@ Datepicker.propTypes = {
   futureRange: PropTypes.number,
   pickListHeight: PropTypes.oneOf([5, 7, 10]),
 };
+
+export default onClickOutside(Datepicker)
