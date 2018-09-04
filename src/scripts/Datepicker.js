@@ -42,7 +42,7 @@ export default class Datepicker extends Component {
     super(props);
     const targetDate = this.props.selectedDate || moment().format('YYYY-MM-DD');
     this.state = { targetDate };
-    this.blurTimer = this.isSafari() ? (200) : (20);
+    this.blurTimer = 200;
     this.monthRef = this.monthRef.bind(this);
     this.datepickerRef = this.datepickerRef.bind(this);
   }
@@ -104,6 +104,7 @@ export default class Datepicker extends Component {
   }
 
   onMonthChange(month) {
+    this.setFocusSafari();
     let targetDate = this.state.targetDate || this.props.selectedDate;
     targetDate = moment(targetDate).add(month, 'months').format('YYYY-MM-DD');
     this.setState({ targetDate });
@@ -147,7 +148,7 @@ export default class Datepicker extends Component {
     const rootEl = ReactDOM.findDOMNode(this);
     let targetEl = document.activeElement;
     let res = false;
-    if (this.isSafari() && this.safariFocus && targetEl === document.body) {
+    if (this.safariFocus && targetEl === document.body) {
       this.safariFocus = false;
       res = true;
       const el = rootEl.querySelector('.slds-day');
@@ -183,6 +184,7 @@ export default class Datepicker extends Component {
               icon='left'
               size='small'
               alt='Previous Month'
+              tabIndex='0'
               onClick={ this.onMonthChange.bind(this, -1) }
             />
           </div>
@@ -194,6 +196,7 @@ export default class Datepicker extends Component {
               icon='right'
               size='small'
               alt='Next Month'
+              tabIndex='0'
               onClick={ this.onMonthChange.bind(this, 1) }
             />
           </div>
