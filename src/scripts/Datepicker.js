@@ -110,18 +110,18 @@ class Datepicker extends Component {
     this.setState({ targetDate });
   }
 
-  // provided by 'react-onclickoutside'
-  handleClickOutside(e) {
-    if (this.props.onBlur) {
-      this.props.onBlur(e);
-    }
-  }
-
   onKeyDown(e) {
     if (e.keyCode === 27) { // ESC
       if (this.props.onClose) {
         this.props.onClose();
       }
+    }
+  }
+
+  // provided by 'react-onclickoutside'
+  handleClickOutside(e) {
+    if (this.props.onBlur) {
+      this.props.onBlur(e);
     }
   }
 
@@ -288,4 +288,4 @@ Datepicker.propTypes = {
   pickListHeight: PropTypes.oneOf([5, 7, 10]),
 };
 
-export default onClickOutside(Datepicker)
+export default onClickOutside(Datepicker);
