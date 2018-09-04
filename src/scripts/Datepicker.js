@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import Button from './Button';
 import { default as Picklist, PicklistItem } from './Picklist';
+import onClickOutside from 'react-onclickoutside';
 
 function createCalendarObject(date) {
   let d = moment(date, 'YYYY-MM-DD');
@@ -37,12 +38,12 @@ function cancelEvent(e) {
   e.stopPropagation();
 }
 
-export default class Datepicker extends Component {
+class Datepicker extends Component {
   constructor(props) {
     super(props);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     const targetDate = this.props.selectedDate || moment().format('YYYY-MM-DD');
     this.state = { targetDate };
-    this.blurTimer = this.isSafari() ? (200) : (20);
     this.monthRef = this.monthRef.bind(this);
     this.datepickerRef = this.datepickerRef.bind(this);
   }
@@ -109,16 +110,6 @@ export default class Datepicker extends Component {
     this.setState({ targetDate });
   }
 
-  onBlur(e) {
-    setTimeout(() => {
-      if (!this.isFocusedInComponent()) {
-        if (this.props.onBlur) {
-          this.props.onBlur(e);
-        }
-      }
-    }, this.blurTimer);
-  }
-
   onKeyDown(e) {
     if (e.keyCode === 27) { // ESC
       if (this.props.onClose) {
@@ -127,8 +118,11 @@ export default class Datepicker extends Component {
     }
   }
 
-  setFocusSafari() {
-    this.safariFocus = true;
+  // provided by 'react-onclickoutside'
+  handleClickOutside(e) {
+    if (this.props.onBlur) {
+      this.props.onBlur(e);
+    }
   }
 
   focusDate(date) {
@@ -137,28 +131,6 @@ export default class Datepicker extends Component {
     if (dateEl) {
       dateEl.focus();
     }
-  }
-
-  isSafari() {
-    return /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
-  }
-
-  isFocusedInComponent() {
-    const rootEl = ReactDOM.findDOMNode(this);
-    let targetEl = document.activeElement;
-    let res = false;
-    if (this.isSafari() && this.safariFocus && targetEl === document.body) {
-      this.safariFocus = false;
-      res = true;
-      const el = rootEl.querySelector('.slds-day');
-      if (el) { el.focus(); }
-    } else {
-      while (targetEl && targetEl !== rootEl) {
-        targetEl = targetEl.parentNode;
-      }
-      res = !!targetEl;
-    }
-    return res;
   }
 
   monthRef(ref) {
@@ -174,7 +146,7 @@ export default class Datepicker extends Component {
     const startYear = this.props.userCurrentYear ? moment().year() : cal.year;
     const minYear = startYear - this.props.backRange;
     return (
-      <div className='slds-datepicker__filter slds-grid' onClick={this.setFocusSafari.bind(this)}>
+      <div className='slds-datepicker__filter slds-grid'>
         <div className='slds-datepicker__filter--month slds-grid slds-grid--align-spread slds-size--2-of-3'>
           <div className='slds-align-middle'>
             <Button
@@ -285,8 +257,6 @@ export default class Datepicker extends Component {
         className={ datepickerClassNames }
         ref={this.datepickerRef}
         aria-hidden={ false }
-        onClick={ this.setFocusSafari.bind(this) }
-        onBlur={ this.onBlur.bind(this) }
         onKeyDown={ this.onKeyDown.bind(this) }
       >
         { this.renderFilter(cal) }
@@ -317,3 +287,5 @@ Datepicker.propTypes = {
   futureRange: PropTypes.number,
   pickListHeight: PropTypes.oneOf([5, 7, 10]),
 };
+
+export default onClickOutside(Datepicker);
