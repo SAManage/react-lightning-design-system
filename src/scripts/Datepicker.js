@@ -42,7 +42,7 @@ export default class Datepicker extends Component {
     super(props);
     const targetDate = this.props.selectedDate || moment().format('YYYY-MM-DD');
     this.state = { targetDate };
-    this.blurTimer = 200;
+    this.blurTimer = this.isFocusMarkingRequired() ? (200) : (20);
     this.monthRef = this.monthRef.bind(this);
     this.datepickerRef = this.datepickerRef.bind(this);
   }
@@ -104,7 +104,7 @@ export default class Datepicker extends Component {
   }
 
   onMonthChange(month) {
-    this.setFocusSafari();
+    this.setFocusMark();
     let targetDate = this.state.targetDate || this.props.selectedDate;
     targetDate = moment(targetDate).add(month, 'months').format('YYYY-MM-DD');
     this.setState({ targetDate });
@@ -128,8 +128,8 @@ export default class Datepicker extends Component {
     }
   }
 
-  setFocusSafari() {
-    this.safariFocus = true;
+  setFocusMark() {
+    this.focusMark = true;
   }
 
   focusDate(date) {
@@ -140,16 +140,17 @@ export default class Datepicker extends Component {
     }
   }
 
-  isSafari() {
-    return /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+  isFocusMarkingRequired() {
+    return /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor) ||
+      /Firefox/.test(navigator.userAgent)
   }
 
   isFocusedInComponent() {
     const rootEl = ReactDOM.findDOMNode(this);
     let targetEl = document.activeElement;
     let res = false;
-    if (this.safariFocus && targetEl === document.body) {
-      this.safariFocus = false;
+    if (this.isFocusMarkingRequired() && this.focusMark && targetEl === document.body) {
+      this.focusMark = false;
       res = true;
       const el = rootEl.querySelector('.slds-day');
       if (el) { el.focus(); }
@@ -175,7 +176,7 @@ export default class Datepicker extends Component {
     const startYear = this.props.userCurrentYear ? moment().year() : cal.year;
     const minYear = startYear - this.props.backRange;
     return (
-      <div className='slds-datepicker__filter slds-grid' onClick={this.setFocusSafari.bind(this)}>
+      <div className='slds-datepicker__filter slds-grid' onClick={this.setFocusMark.bind(this)}>
         <div className='slds-datepicker__filter--month slds-grid slds-grid--align-spread slds-size--2-of-3'>
           <div className='slds-align-middle'>
             <Button
@@ -184,7 +185,6 @@ export default class Datepicker extends Component {
               icon='left'
               size='small'
               alt='Previous Month'
-              tabIndex='0'
               onClick={ this.onMonthChange.bind(this, -1) }
             />
           </div>
@@ -196,7 +196,6 @@ export default class Datepicker extends Component {
               icon='right'
               size='small'
               alt='Next Month'
-              tabIndex='0'
               onClick={ this.onMonthChange.bind(this, 1) }
             />
           </div>
@@ -288,7 +287,7 @@ export default class Datepicker extends Component {
         className={ datepickerClassNames }
         ref={this.datepickerRef}
         aria-hidden={ false }
-        onClick={ this.setFocusSafari.bind(this) }
+        onClick={ this.setFocusMark.bind(this) }
         onBlur={ this.onBlur.bind(this) }
         onKeyDown={ this.onKeyDown.bind(this) }
       >
