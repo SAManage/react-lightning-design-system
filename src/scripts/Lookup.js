@@ -245,6 +245,7 @@ class LookupSearch extends Component {
   renderSearchInput(props) {
     const { className, hidden, searchText, iconAlign = 'left', scopes, ...pprops } = props;
     delete pprops.onInputClicked;
+    delete pprops.focusOnInput;
     if (scopes) delete pprops.autoFocus;
     const searchInputClassNames = classnames(
       'slds-grid',
@@ -297,6 +298,7 @@ class LookupSearch extends Component {
           onMenuItemClick={ this.onMenuItemClick.bind(this) }
           onBlur={ this.onInputBlur.bind(this) }
           autoFocus={autoFocus}
+          focusOnInput={ this.props.focusOnInput }
         >
           { scopes.map((scope) => <DropdownMenuItem key={ scope.value } { ...scope } />) }
         </DropdownButton>
@@ -353,6 +355,7 @@ LookupSearch.propTypes = {
   onComplete: PropTypes.func,
   onInputClicked: PropTypes.func,
   onFocus: PropTypes.func,
+  focusOnInput: PropTypes.func,
 };
 
 /**
@@ -828,6 +831,7 @@ Lookup.propTypes = {
   lookupReadOnly: PropTypes.bool,
   renderMoreDetailsToggleButton: PropTypes.func,
   toggleClassName: PropTypes.string,
+  focusOnInput: PropTypes.func,
 };
 
 Lookup.isFormElement = true;
