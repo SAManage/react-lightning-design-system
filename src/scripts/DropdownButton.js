@@ -77,10 +77,12 @@ export default class DropdownButton extends Component {
 
   onMenuItemClick(...args) {
     if (!this.props.hoverPopup) {
-      const triggerElem = ReactDOM.findDOMNode(this.trigger);
-      if (triggerElem) triggerElem.focus();
-      if (triggerElem) this.setState({ opened: false });
-      if (this.props.focusOnInput) this.props.focusOnInput();
+      setTimeout(() => {
+        const triggerElem = ReactDOM.findDOMNode(this.trigger);
+        if (triggerElem) triggerElem.focus();
+        if (triggerElem) this.setState({ opened: false });
+        if (this.props.focusOnInput) this.props.focusOnInput();
+      }, 10);
     }
     if (this.props.onMenuItemClick) {
       this.props.onMenuItemClick(...args);
