@@ -252,7 +252,7 @@ class LookupSearch extends Component {
   renderSearchInput(props) {
     const { className, hidden, searchText, iconAlign = 'left', scopes, ...pprops } = props;
     delete pprops.onInputClicked;
-    delete pprops.onInputClicked;
+    delete pprops.onInputFocus;
     delete pprops.focusOnInput;
     if (scopes) delete pprops.autoFocus;
     const searchInputClassNames = classnames(
