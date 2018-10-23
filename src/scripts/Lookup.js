@@ -264,6 +264,7 @@ class LookupSearch extends Component {
           onChange={ this.onInputChange.bind(this) }
           onBlur={ this.onInputBlur.bind(this) }
           onClick={ this.onInputClicked.bind(this) }
+          onFocus={ this.onInputClicked.bind(this) }
         />
         <Icon
           icon='search'
