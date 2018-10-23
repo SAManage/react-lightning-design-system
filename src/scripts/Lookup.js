@@ -238,12 +238,20 @@ class LookupSearch extends Component {
     }
   }
 
+  onInputFocus(e) {
+    if (this.props.onInputFocus) {
+      if (this.props.onFocus) this.props.onFocus(e);
+      this.props.onInputFocus(e.target.value);
+    }
+  }
+
   inputRef(ref) {
     this.input = ref;
   }
 
   renderSearchInput(props) {
     const { className, hidden, searchText, iconAlign = 'left', scopes, ...pprops } = props;
+    delete pprops.onInputClicked;
     delete pprops.onInputClicked;
     delete pprops.focusOnInput;
     if (scopes) delete pprops.autoFocus;
@@ -264,7 +272,7 @@ class LookupSearch extends Component {
           onChange={ this.onInputChange.bind(this) }
           onBlur={ this.onInputBlur.bind(this) }
           onClick={ this.onInputClicked.bind(this) }
-          onFocus={ this.onInputClicked.bind(this) }
+          onFocus={ this.onInputFocus.bind(this) }
         />
         <Icon
           icon='search'
@@ -825,6 +833,7 @@ Lookup.propTypes = {
   totalCols: PropTypes.number,
   cols: PropTypes.number,
   onInputClicked: PropTypes.func,
+  onInputFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
   hasMore: PropTypes.bool,
   onScroll: PropTypes.func,
