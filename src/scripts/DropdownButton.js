@@ -81,6 +81,7 @@ export default class DropdownButton extends Component {
         const triggerElem = ReactDOM.findDOMNode(this.trigger);
         if (triggerElem) triggerElem.focus();
         if (triggerElem) this.setState({ opened: false });
+        if (this.props.focusOnInput) this.props.focusOnInput();
       }, 10);
     }
     if (this.props.onMenuItemClick) {
@@ -130,6 +131,7 @@ export default class DropdownButton extends Component {
     const pprops = { ...props };
     delete pprops.onMenuItemClick;
     delete pprops.inheritWidth;
+    delete pprops.focusOnInput;
     const button = (
       <Button
         { ...pprops }
@@ -224,5 +226,6 @@ DropdownButton.propTypes = {
   children: PropTypes.node,
   inheritWidth: PropTypes.bool,
   backgroundColor: PropTypes.string,
+  focusOnInput: PropTypes.func,
   keyCodesToCloseMenu: PropTypes.arrayOf(PropTypes.number),
 };

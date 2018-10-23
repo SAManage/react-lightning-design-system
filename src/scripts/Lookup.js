@@ -238,6 +238,13 @@ class LookupSearch extends Component {
     }
   }
 
+  onInputFocus(e) {
+    if (this.props.onInputFocus) {
+      if (this.props.onFocus) this.props.onFocus(e);
+      this.props.onInputFocus(e.target.value);
+    }
+  }
+
   inputRef(ref) {
     this.input = ref;
   }
@@ -245,6 +252,8 @@ class LookupSearch extends Component {
   renderSearchInput(props) {
     const { className, hidden, searchText, iconAlign = 'left', scopes, ...pprops } = props;
     delete pprops.onInputClicked;
+    delete pprops.onInputFocus;
+    delete pprops.focusOnInput;
     if (scopes) delete pprops.autoFocus;
     const searchInputClassNames = classnames(
       'slds-grid',
@@ -263,6 +272,7 @@ class LookupSearch extends Component {
           onChange={ this.onInputChange.bind(this) }
           onBlur={ this.onInputBlur.bind(this) }
           onClick={ this.onInputClicked.bind(this) }
+          onFocus={ this.onInputFocus.bind(this) }
         />
         <Icon
           icon='search'
@@ -297,6 +307,7 @@ class LookupSearch extends Component {
           onMenuItemClick={ this.onMenuItemClick.bind(this) }
           onBlur={ this.onInputBlur.bind(this) }
           autoFocus={autoFocus}
+          focusOnInput={ this.props.focusOnInput }
         >
           { scopes.map((scope) => <DropdownMenuItem key={ scope.value } { ...scope } />) }
         </DropdownButton>
@@ -353,6 +364,7 @@ LookupSearch.propTypes = {
   onComplete: PropTypes.func,
   onInputClicked: PropTypes.func,
   onFocus: PropTypes.func,
+  focusOnInput: PropTypes.func,
 };
 
 /**
@@ -821,6 +833,7 @@ Lookup.propTypes = {
   totalCols: PropTypes.number,
   cols: PropTypes.number,
   onInputClicked: PropTypes.func,
+  onInputFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
   hasMore: PropTypes.bool,
   onScroll: PropTypes.func,
@@ -828,6 +841,7 @@ Lookup.propTypes = {
   lookupReadOnly: PropTypes.bool,
   renderMoreDetailsToggleButton: PropTypes.func,
   toggleClassName: PropTypes.string,
+  focusOnInput: PropTypes.func,
 };
 
 Lookup.isFormElement = true;
