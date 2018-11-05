@@ -239,7 +239,10 @@ class LookupSearch extends Component {
   }
 
   onInputFocus(e) {
-    if (this.props.onFocus) this.props.onFocus(e);
+    if (this.props.onInputFocus) {
+      if (this.props.onFocus) this.props.onFocus(e);
+      this.props.onInputFocus(e.target.value);
+    }
   }
 
   inputRef(ref) {
@@ -362,6 +365,7 @@ LookupSearch.propTypes = {
   onInputClicked: PropTypes.func,
   onFocus: PropTypes.func,
   focusOnInput: PropTypes.func,
+  onInputFocus: PropTypes.func,
 };
 
 /**
