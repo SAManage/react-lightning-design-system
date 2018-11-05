@@ -23,16 +23,13 @@ export default class Picklist extends Component {
     if (this.props.onValueChange && prevState.value !== this.state.value) {
       this.props.onValueChange(this.state.value, prevState.value);
     }
+    if (this.props.focusOnOpen && prevState.opened === false && this.state.opened === true) {
+      this.focusToTargetItemEl();
+    }
   }
 
   onClick() {
-    const isOpening = !this.state.opened;
     this.setState((state => ({ opened: !state.opened })));
-    if (isOpening && this.props.focusOnOpen) {
-      setTimeout(() => {
-        this.focusToTargetItemEl();
-      }, 10);
-    }
   }
 
   onPicklistItemClick(item, e) {
@@ -84,9 +81,6 @@ export default class Picklist extends Component {
       e.stopPropagation();
       if (!this.state.opened) {
         this.setState({ opened: true });
-        setTimeout(() => {
-          this.focusToTargetItemEl();
-        }, 10);
       } else {
         this.focusToTargetItemEl();
       }
@@ -139,6 +133,7 @@ export default class Picklist extends Component {
 
   focusToTargetItemEl() {
     const dropdownEl = ReactDOM.findDOMNode(this.dropdown);
+    if (!dropdownEl) return;
     const firstItemEl =
       dropdownEl.querySelector('.slds-is-selected > .react-slds-menuitem[tabIndex]') ||
       dropdownEl.querySelector('.react-slds-menuitem[tabIndex]');

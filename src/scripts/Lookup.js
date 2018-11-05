@@ -365,6 +365,7 @@ LookupSearch.propTypes = {
   onInputClicked: PropTypes.func,
   onFocus: PropTypes.func,
   focusOnInput: PropTypes.func,
+  onInputFocus: PropTypes.func,
 };
 
 /**
