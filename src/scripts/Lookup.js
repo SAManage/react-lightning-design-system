@@ -460,11 +460,11 @@ class LookupCandidateList extends Component {
   }
 
   renderCandidate(entry) {
-    const { getCandidateEntryKey } = this.props;
+    const { getCandidateUniqueKey } = this.props;
     const icon = entry.context ?
       this.renderCustomIcon(entry) :
       <Icon category={ entry.category } icon={ entry.icon } size='small' />;
-    const condidateKey = getCandidateEntryKey ? getCandidateEntryKey(entry) : `${entry.value}_${entry.label}`;
+    const condidateKey = getCandidateUniqueKey ? getCandidateUniqueKey(entry) : `${entry.value}_${entry.label}`;
     return (
       <li className='slds-lookup__item' key={condidateKey}>
         <a
@@ -554,7 +554,7 @@ LookupCandidateList.propTypes = {
   toggleClassName: PropTypes.string,
   renderMoreDetailsToggleButton: PropTypes.func,
   LookupCandidateList: PropTypes.func,
-  getCandidateEntryKey: PropTypes.func,
+  getCandidateUniqueKey: PropTypes.func,
 };
 
 /**
@@ -724,7 +724,7 @@ export default class Lookup extends Component {
       lookupReadOnly,
       renderMoreDetailsToggleButton,
       toggleClassName,
-      getCandidateEntryKey,
+      getCandidateUniqueKey,
       ...props,
     } = this.props;
     const dropdown = (
@@ -745,7 +745,7 @@ export default class Lookup extends Component {
         hasMore={hasMore}
         renderMoreDetailsToggleButton={renderMoreDetailsToggleButton}
         toggleClassName={toggleClassName}
-        getCandidateEntryKey={getCandidateEntryKey}
+        getCandidateUniqueKey={getCandidateUniqueKey}
       />
     );
     const lookupClassNames = classnames(
@@ -849,7 +849,7 @@ Lookup.propTypes = {
   renderMoreDetailsToggleButton: PropTypes.func,
   toggleClassName: PropTypes.string,
   focusOnInput: PropTypes.func,
-  getCandidateEntryKey: PropTypes.func,
+  getCandidateUniqueKey: PropTypes.func,
 };
 
 Lookup.isFormElement = true;
