@@ -381,7 +381,10 @@ class LookupCandidateList extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.searchText !== this.props.searchText) this.reset = true;
+    if (newProps.searchText !== this.props.searchText || newProps.resetPageNumber) {
+      // console.log('Lookup componentWillReceiveProps reset=true');
+      this.reset = true;
+    }
     else this.reset = false;
   }
 
@@ -427,7 +430,10 @@ class LookupCandidateList extends Component {
   }
 
   loadMoreData(page) {
-    if (this.props.onScroll) this.props.onScroll(page);
+    if (this.props.onScroll) {
+      // console.log('Lookup loadMoreData ', page);
+      this.props.onScroll(page);
+    }
   }
 
   renderCustomIcon(entry) {
@@ -555,6 +561,7 @@ LookupCandidateList.propTypes = {
   renderMoreDetailsToggleButton: PropTypes.func,
   LookupCandidateList: PropTypes.func,
   getCandidateUniqueKey: PropTypes.func,
+  resetPageNumber: PropTypes.bool
 };
 
 /**
@@ -725,6 +732,7 @@ export default class Lookup extends Component {
       renderMoreDetailsToggleButton,
       toggleClassName,
       getCandidateUniqueKey,
+      resetPageNumber,
       ...props,
     } = this.props;
     const dropdown = (
@@ -746,6 +754,7 @@ export default class Lookup extends Component {
         renderMoreDetailsToggleButton={renderMoreDetailsToggleButton}
         toggleClassName={toggleClassName}
         getCandidateUniqueKey={getCandidateUniqueKey}
+        resetPageNumber={resetPageNumber}
       />
     );
     const lookupClassNames = classnames(
@@ -850,6 +859,7 @@ Lookup.propTypes = {
   toggleClassName: PropTypes.string,
   focusOnInput: PropTypes.func,
   getCandidateUniqueKey: PropTypes.func,
+  resetPageNumber: PropTypes.bool
 };
 
 Lookup.isFormElement = true;
