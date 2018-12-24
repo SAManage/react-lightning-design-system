@@ -426,9 +426,7 @@ class LookupCandidateList extends Component {
   }
 
   loadMoreData(page) {
-    if (this.props.onScroll) {
-      this.props.onScroll(page);
-    }
+    if (this.props.onScroll) this.props.onScroll(page);
   }
 
   renderCustomIcon(entry) {
