@@ -381,8 +381,7 @@ class LookupCandidateList extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.searchText !== this.props.searchText) this.reset = true;
-    else this.reset = false;
+    this.reset = newProps.searchText !== this.props.searchText || newProps.resetPageNumber;
   }
 
   componentDidUpdate(prevProps) {
@@ -555,6 +554,7 @@ LookupCandidateList.propTypes = {
   renderMoreDetailsToggleButton: PropTypes.func,
   LookupCandidateList: PropTypes.func,
   getCandidateUniqueKey: PropTypes.func,
+  resetPageNumber: PropTypes.bool,
 };
 
 /**
@@ -725,6 +725,7 @@ export default class Lookup extends Component {
       renderMoreDetailsToggleButton,
       toggleClassName,
       getCandidateUniqueKey,
+      resetPageNumber,
       ...props,
     } = this.props;
     const dropdown = (
@@ -746,6 +747,7 @@ export default class Lookup extends Component {
         renderMoreDetailsToggleButton={renderMoreDetailsToggleButton}
         toggleClassName={toggleClassName}
         getCandidateUniqueKey={getCandidateUniqueKey}
+        resetPageNumber={resetPageNumber}
       />
     );
     const lookupClassNames = classnames(
@@ -850,6 +852,7 @@ Lookup.propTypes = {
   toggleClassName: PropTypes.string,
   focusOnInput: PropTypes.func,
   getCandidateUniqueKey: PropTypes.func,
+  resetPageNumber: PropTypes.bool
 };
 
 Lookup.isFormElement = true;
