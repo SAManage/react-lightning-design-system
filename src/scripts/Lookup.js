@@ -381,11 +381,7 @@ class LookupCandidateList extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.searchText !== this.props.searchText || newProps.resetPageNumber) {
-      // console.log('Lookup componentWillReceiveProps reset=true');
-      this.reset = true;
-    }
-    else this.reset = false;
+    this.reset = newProps.searchText !== this.props.searchText || newProps.resetPageNumber;
   }
 
   componentDidUpdate(prevProps) {
@@ -431,7 +427,6 @@ class LookupCandidateList extends Component {
 
   loadMoreData(page) {
     if (this.props.onScroll) {
-      // console.log('Lookup loadMoreData ', page);
       this.props.onScroll(page);
     }
   }
@@ -561,7 +556,7 @@ LookupCandidateList.propTypes = {
   renderMoreDetailsToggleButton: PropTypes.func,
   LookupCandidateList: PropTypes.func,
   getCandidateUniqueKey: PropTypes.func,
-  resetPageNumber: PropTypes.bool
+  resetPageNumber: PropTypes.bool,
 };
 
 /**
