@@ -29,7 +29,8 @@ export default class Picklist extends Component {
   }
 
   onClick(e) {
-    this.props.onClick(e);
+    const { onClick } = this.props;
+    if (onClick) onClick(e);
     this.setState((state => ({ opened: !state.opened })));
   }
 
