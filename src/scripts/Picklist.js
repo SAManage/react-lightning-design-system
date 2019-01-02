@@ -28,7 +28,9 @@ export default class Picklist extends Component {
     }
   }
 
-  onClick() {
+  onClick(e) {
+    const { onClick } = this.props;
+    if (onClick) onClick(e);
     this.setState((state => ({ opened: !state.opened })));
   }
 
@@ -284,6 +286,7 @@ Picklist.propTypes = {
   selectedText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   defaultOpened: PropTypes.bool,
   onChange: PropTypes.func,
+  onClick: PropTypes.func,
   onValueChange: PropTypes.func,
   onSelect: PropTypes.func,
   onComplete: PropTypes.func,
