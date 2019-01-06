@@ -35,9 +35,9 @@ class Row extends Component {
     const klass = child.type;
     if (!klass.isFormElement) {
       const {
-        id = `form-element-${uuid()}`, label, required, error, cols,
+        id = `form-element-${uuid()}`, label, required, error, cols, tooltip,
       } = child.props;
-      const formElemProps = { id, label, required, error, totalCols, cols };
+      const formElemProps = { id, label, required, error, totalCols, cols, tooltip };
       return (
         <FormElement { ...formElemProps }>
           { React.cloneElement(child, {

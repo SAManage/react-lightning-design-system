@@ -255,9 +255,9 @@ export default class Picklist extends Component {
 
   render() {
     const id = this.props.id || this.state.id;
-    const { label, required, error, totalCols, cols, ...props } = this.props;
+    const { label, required, error, totalCols, cols, tooltip, ...props } = this.props;
     const dropdown = this.renderDropdown();
-    const formElemProps = { id, label, required, error, totalCols, cols, dropdown };
+    const formElemProps = { id, label, required, error, totalCols, cols, dropdown, tooltip };
     return <FormElement {...formElemProps}>{this.renderPicklist({ ...props, id })}</FormElement>;
   }
 }
@@ -305,6 +305,7 @@ Picklist.propTypes = {
   align: PropTypes.oneOf(['left', 'center', 'right']),
   focusOnOpen: PropTypes.bool,
   buttonClassName: PropTypes.string,
+  tooltip: PropTypes.element,
 };
 
 Picklist.isFormElement = true;

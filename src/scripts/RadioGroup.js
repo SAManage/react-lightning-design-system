@@ -23,7 +23,7 @@ export default class RadioGroup extends React.Component {
 
   render() {
     const {
-      className, label, required, error, totalCols, cols, style, children, ...props,
+      className, label, required, error, totalCols, cols, style, children, tooltip, ...props,
     } = this.props;
     const grpClassNames = classnames(
       className,
@@ -50,6 +50,7 @@ export default class RadioGroup extends React.Component {
               <abbr className='slds-required'>*</abbr> :
               undefined
           }
+          { tooltip }
         </legend>
         <div className='slds-form-element__control'>
           { React.Children.map(children, this.renderControl.bind(this)) }
@@ -82,6 +83,7 @@ RadioGroup.propTypes = {
   cols: PropTypes.number,
   style: PropTypes.object,
   children: PropTypes.node,
+  tooltip: PropTypes.element,
 };
 
 RadioGroup.isFormElement = true;

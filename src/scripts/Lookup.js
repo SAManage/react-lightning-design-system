@@ -725,6 +725,7 @@ export default class Lookup extends Component {
       renderMoreDetailsToggleButton,
       toggleClassName,
       getCandidateUniqueKey,
+      tooltip,
       ...props,
     } = this.props;
     const dropdown = (
@@ -753,7 +754,7 @@ export default class Lookup extends Component {
       { 'slds-has-selection': selected },
       className
     );
-    const formElemProps = { id, totalCols, cols, label, required, error, dropdown };
+    const formElemProps = { id, totalCols, cols, label, required, error, dropdown, tooltip };
     return (
       <FormElement { ...formElemProps }>
         <div
@@ -850,6 +851,7 @@ Lookup.propTypes = {
   toggleClassName: PropTypes.string,
   focusOnInput: PropTypes.func,
   getCandidateUniqueKey: PropTypes.func,
+  tooltip: PropTypes.element,
 };
 
 Lookup.isFormElement = true;

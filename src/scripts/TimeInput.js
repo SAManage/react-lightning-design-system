@@ -235,6 +235,7 @@ export default class TimeInput extends React.Component {
       required,
       error,
       maxHeight,
+      tooltip,
       ...props,
     } = this.props;
 
@@ -242,7 +243,7 @@ export default class TimeInput extends React.Component {
       'react-slds-dropdown-opened': this.state.opened,
     });
 
-    const formElemProps = { id, totalCols, cols, label, required, error };
+    const formElemProps = { id, totalCols, cols, label, required, error, tooltip };
     delete props.resolution;
     delete props.onValueChange;
     return (
@@ -296,6 +297,7 @@ TimeInput.propTypes = {
   onComplete: PropTypes.func,
   dontUseDefaultValue: PropTypes.bool,
   openMenuOnInputClick: PropTypes.bool,
+  tooltip: PropTypes.element,
 };
 
 TimeInput.isFormElement = true;

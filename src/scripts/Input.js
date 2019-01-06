@@ -16,10 +16,10 @@ export default class Input extends Component {
 
   render() {
     const {
-      id = `input-${uuid()}`, label, required, error, readonly, inputRef, ...props,
+      id = `input-${uuid()}`, label, required, error, readonly, inputRef, tooltip, ...props,
     } = this.props;
     if (label || required || error) {
-      const formElemProps = { id, label, required, error };
+      const formElemProps = { id, label, required, error, tooltip };
       return (
         <FormElement { ...formElemProps }>
           <Input readOnly={readonly} inputRef={inputRef} { ...{ ...props, id } } />
@@ -82,6 +82,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   maxLength: PropTypes.number,
   inputRef: PropTypes.func,
+  tooltip: PropTypes.element,
 };
 
 Input.defaultProps = {
