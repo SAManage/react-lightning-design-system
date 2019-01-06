@@ -59,5 +59,5 @@ Checkbox.propTypes = {
   grouped: PropTypes.bool,
   checked: PropTypes.bool,
   defaultChecked: PropTypes.bool,
-  tooltip: PropTypes.bool,
+  tooltip: PropTypes.element,
 };
