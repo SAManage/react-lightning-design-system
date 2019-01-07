@@ -245,7 +245,7 @@ class DateInput extends Component {
     const id = this.props.id || this.state.id;
     const {
       totalCols, cols, label, required, error,
-      defaultValue, value, dateFormat,
+      defaultValue, value, dateFormat, tooltip,
       ...props,
     } = this.props;
     const dateValue =
@@ -258,7 +258,7 @@ class DateInput extends Component {
       typeof dateValue !== 'undefined' ?
         (mvalue.isValid() ? mvalue.format(dateFormat) : dateValue) : undefined;
     const dropdown = this.renderDropdown(dateValue);
-    const formElemProps = { id, totalCols, cols, label, required, error, dropdown };
+    const formElemProps = { id, totalCols, cols, label, required, error, dropdown, tooltip };
     return (
       <FormElement { ...formElemProps }>
         { this.renderInput({ id, inputValue, ...props }) }
@@ -292,6 +292,7 @@ DateInput.propTypes = {
   onComplete: PropTypes.func,
   disablePastDateSelection: PropTypes.bool,
   inputFocused: PropTypes.bool,
+  tooltip: PropTypes.element,
 };
 
 DateInput.defaultProps = {

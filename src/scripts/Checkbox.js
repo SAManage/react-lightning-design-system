@@ -28,8 +28,8 @@ export default class Checkbox extends Component {
   }
 
   render() {
-    const { grouped, required, error, totalCols, cols, ...props } = this.props;
-    const formElemProps = { required, error, totalCols, cols };
+    const { grouped, required, error, totalCols, cols, tooltip, ...props } = this.props;
+    const formElemProps = { required, error, totalCols, cols, tooltip };
     return (
       grouped ?
         this.renderCheckbox(props) :
@@ -59,4 +59,5 @@ Checkbox.propTypes = {
   grouped: PropTypes.bool,
   checked: PropTypes.bool,
   defaultChecked: PropTypes.bool,
+  tooltip: PropTypes.element,
 };

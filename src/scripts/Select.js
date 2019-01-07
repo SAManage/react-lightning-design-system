@@ -20,9 +20,9 @@ export default class Select extends Component {
 
   render() {
     const id = this.props.id || this.state.id;
-    const { label, required, error, ...props } = this.props;
+    const { label, required, error, tooltip, ...props } = this.props;
     if (label || required || error) {
-      const formElemProps = { id, label, required, error };
+      const formElemProps = { id, label, required, error, tooltip };
       return (
         <FormElement { ...formElemProps }>
           <Select { ...{ ...props, id } } />
@@ -61,6 +61,7 @@ Select.propTypes = {
   defaultValue: PropTypes.any,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  tooltip: PropTypes.element,
 };
 
 export const Option = (props) => (

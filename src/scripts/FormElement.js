@@ -63,7 +63,7 @@ export default class FormElement extends React.Component {
   }
 
   renderLabel() {
-    const { id, label, required } = this.props;
+    const { id, label, required, tooltip } = this.props;
     return (
       label ?
         <label
@@ -77,6 +77,7 @@ export default class FormElement extends React.Component {
               <abbr className='slds-required'>*</abbr> :
               undefined
           }
+          { tooltip }
         </label> :
         undefined
     );
@@ -147,6 +148,7 @@ FormElement.propTypes = {
   totalCols: PropTypes.number,
   dropdown: PropTypes.element,
   children: PropTypes.element,
+  tooltip: PropTypes.element,
 };
 
 FormElement.isFormElement = true;

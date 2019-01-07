@@ -22,9 +22,9 @@ export default class Textarea extends Component {
 
   render() {
     const id = this.props.id || this.state.id;
-    const { label, required, error, ...props } = this.props;
+    const { label, required, error, tooltip, ...props } = this.props;
     if (label || required || error) {
-      const formElemProps = { id, label, required, error };
+      const formElemProps = { id, label, required, error, tooltip };
       return (
         <FormElement { ...formElemProps }>
           <Textarea { ...{ ...props, id } } />
@@ -80,4 +80,5 @@ Textarea.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   autosize: PropTypes.bool,
+  tooltip: PropTypes.element,
 };

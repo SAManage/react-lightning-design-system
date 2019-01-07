@@ -39,7 +39,7 @@ export default class CheckboxGroup extends React.Component {
 
   render() {
     const {
-      className, label, totalCols, cols, style, required, error, children, ...props,
+      className, label, totalCols, cols, style, required, error, children, tooltip, ...props,
     } = this.props;
     const grpClassNames = classnames(
       className,
@@ -71,6 +71,7 @@ export default class CheckboxGroup extends React.Component {
               <abbr className='slds-required'>*</abbr> :
               undefined
           }
+          { tooltip }
         </legend>
         <div className='slds-form-element__control' ref={this.controlsRef}>
           { React.Children.map(children, this.renderControl.bind(this)) }
@@ -103,6 +104,7 @@ CheckboxGroup.propTypes = {
   cols: PropTypes.number,
   onChange: PropTypes.func,
   children: PropTypes.node,
+  tooltip: PropTypes.element,
 };
 
 CheckboxGroup.isFormElement = true;

@@ -10,9 +10,9 @@ export default class Form extends Component {
     const klass = element.type;
     if (!klass.isFormElement) {
       const {
-        id = `form-element-${uuid()}`, label, required, error, totalCols, cols,
+        id = `form-element-${uuid()}`, label, required, error, totalCols, cols, tooltip,
       } = element.props;
-      const formElemProps = { id, label, required, error, totalCols, cols };
+      const formElemProps = { id, label, required, error, totalCols, cols, tooltip };
       return (
         <FormElement { ...formElemProps }>
           { React.cloneElement(element, {
