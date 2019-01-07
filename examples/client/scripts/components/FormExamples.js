@@ -6,6 +6,7 @@ import {
   DateInput,
   Lookup,
   FieldSet,
+  Icon,
 } from 'react-lightning-design-system';
 
 const Row = FieldSet.Row;
@@ -40,6 +41,7 @@ export default class FormExamples extends Component {
     const styles = { padding: '12px' };
     const required = this.state.isRequired;
     const error = this.state.hasError && 'The input has an error';
+    const tooltip = this.state.tooltip && <Icon category='utility' icon='info' size='x-small' />;
     return (
       <div>
         <h2 className='slds-m-vertical--medium'>Form</h2>
@@ -54,25 +56,30 @@ export default class FormExamples extends Component {
             checked={ this.state.hasError }
             onClick={ () => this.setState({ hasError: !this.state.hasError }) }
           />
+          <Checkbox
+            label='Tooltip ?'
+            checked={ this.state.tooltip }
+            onClick={ () => this.setState({ tooltip: !this.state.tooltip }) }
+          />
         </div>
         <h2 className='slds-m-vertical--medium'>Form Stacked</h2>
         <div style={ styles }>
           <Form>
-            <Input label='Text Field #1' type='text' placeholder='Input text here' required={ required } error={ error } />
-            <Input label='Number Field #1' type='number' placeholder='Input number here' required={ required } error={ error } />
-            <Textarea label='Textarea #1' defaultValue='Default Text' placeholder='Input text here' required={ required } error={ error } />
-            <Textarea label='Textarea #2 auto size (min2 max 10)' defaultValue='Default Text' placeholder='Input text here' required={ required } error={ error } autosize minRows={2} maxRows={10} />
-            <RadioGroup label='Radio Group #1' name='radiogroup1' required={ required } error={ error }>
+            <Input label='Text Field #1' type='text' placeholder='Input text here' required={ required } error={ error } tooltip={ tooltip } />
+            <Input label='Number Field #1' type='number' placeholder='Input number here' required={ required } error={ error } tooltip={ tooltip } />
+            <Textarea label='Textarea #1' defaultValue='Default Text' placeholder='Input text here' required={ required } error={ error } tooltip={ tooltip } />
+            <Textarea label='Textarea #2 auto size (min2 max 10)' defaultValue='Default Text' placeholder='Input text here' required={ required } error={ error } tooltip={ tooltip } autosize minRows={2} maxRows={10} />
+            <RadioGroup label='Radio Group #1' name='radiogroup1' required={ required } error={ error } tooltip={ tooltip }>
               <Radio label='Radio #1' value={ 1 } />
               <Radio label='Radio #2' value={ 2 } defaultChecked />
               <Radio label='Radio #3' value={ 3 } disabled />
             </RadioGroup>
-            <CheckboxGroup label='Checkbox Group #1' name='checkgroup1' required={ required } error={ error }>
+            <CheckboxGroup label='Checkbox Group #1' name='checkgroup1' required={ required } error={ error } tooltip={ tooltip }>
               <Checkbox label='Check #1' value={ 1 } />
               <Checkbox label='Check #2' value={ 2 } defaultChecked />
               <Checkbox label='Check #3' value={ 3 } disabled />
             </CheckboxGroup>
-            <Select label='Select #1' defaultValue={ 2 } required={ required } error={ error }>
+            <Select label='Select #1' defaultValue={ 2 } required={ required } error={ error } tooltip={ tooltip }>
               <Option value={ 1 } label='Option #1' />
               <Option value={ 2 } >Option #2</Option>
               <Option value={ 3 } disabled >Option #3</Option>
@@ -82,6 +89,7 @@ export default class FormExamples extends Component {
               required={ required } error={ error } useNone noneText={'--None--'} value={null}
               selectedText={<b>Select option</b>}
               buttonClassName='customButton'
+              tooltip={ tooltip }
             >
               <PicklistItem value={ 1 } label='Item #1' />
               <PicklistItem value={ 2 } >Item #2</PicklistItem>
@@ -96,8 +104,9 @@ export default class FormExamples extends Component {
               required={ required }
               error={ error }
               dateFormat='MMM, DD YYYY'
+              tooltip={ tooltip }
             />
-            <Lookup label='Lookup #1' data={ LOOKUP_DATA } required={ required } error={ error } />
+            <Lookup label='Lookup #1' data={ LOOKUP_DATA } required={ required } error={ error } tooltip={ tooltip } />
           </Form>
         </div>
 
@@ -108,21 +117,25 @@ export default class FormExamples extends Component {
               onChange={ this.onFieldChange.bind(this, 'text') }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             />
             <Input label='Number Field #1' value={ this.state.number } type='number' placeholder='Input number here'
               onChange={ this.onFieldChange.bind(this, 'number') }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             />
             <Textarea label='Textarea #1' value={ this.state.textarea } placeholder='Input text here'
               onChange={ this.onFieldChange.bind(this, 'textarea') }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             />
             <RadioGroup label='Radio Group #1' name='radiogroup1'
               onChange={ this.onFieldChange.bind(this, 'radiogroup') }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             >
               <Radio label='Radio #1' value={ 1 } checked={ this.state.radiogroup === 1 } />
               <Radio label='Radio #2' value={ 2 } checked={ this.state.radiogroup === 2 } />
@@ -132,6 +145,7 @@ export default class FormExamples extends Component {
               onChange={ this.onFieldChange.bind(this, 'checkgroup') }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             >
               <Checkbox label='Check #1' value={ 1 } checked={ this.state.checkgroup.indexOf(1) >= 0 } />
               <Checkbox label='Check #2' value={ 2 } checked={ this.state.checkgroup.indexOf(2) >= 0 } />
@@ -141,6 +155,7 @@ export default class FormExamples extends Component {
               onChange={ this.onFieldChange.bind(this, 'select') }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             >
               <Option value={ 1 } label='Option #1' />
               <Option value={ 2 } >Option #2</Option>
@@ -150,6 +165,7 @@ export default class FormExamples extends Component {
               onValueChange={ (value) => this.onFieldChange('picklist', {}, value) }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             >
             {
               new Array(10).join('_').split('')
@@ -160,11 +176,13 @@ export default class FormExamples extends Component {
               onValueChange={ (value) => this.onFieldChange('dateinput', {}, value) }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             />
             <Lookup label='Lookup #1' data={ LOOKUP_DATA }
               onValueChange={ (value) => this.onFieldChange('lookup', {}, value) }
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             />
           </Form>
         </div>
@@ -175,10 +193,12 @@ export default class FormExamples extends Component {
             <Input label='Text Field #1' type='text' placeholder='Input text here'
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             />
             <Input label='Number Field #1' type='number' placeholder='Input number here'
               required={ required }
               error={ error }
+              tooltip={ tooltip }
             />
             <Button type='brand'>Submit</Button>
           </Form>
@@ -192,10 +212,12 @@ export default class FormExamples extends Component {
                 <Input label='First Name' type='text' placeholder='Input first name here'
                   required={ required }
                   error={ error }
+                  tooltip={ tooltip }
                 />
                 <Input label='Last Name' type='text' placeholder='Input last name here'
                   required={ required }
                   error={ error }
+                  tooltip={ tooltip }
                 />
               </Row>
             </FieldSet>
@@ -204,49 +226,51 @@ export default class FormExamples extends Component {
                 <Textarea label='Street' rows='2' placeholder='Input street here'
                   required={ required }
                   error={ error }
+                  tooltip={ tooltip }
                 />
               </Row>
               <Row>
                 <Input label='City' size='40' placeholder='Input city here'
                   required={ required }
                   error={ error }
+                  tooltip={ tooltip }
                 />
               </Row>
               <Row>
-                <Select label='State' defaultValue={ 1 } required={ required } error={ error }>
+                <Select label='State' defaultValue={ 1 } required={ required } error={ error } tooltip={ tooltip }>
                   <Option value='CA'>California</Option>
                   <Option value='OR'>Oregon</Option>
                   <Option value='WA'>Washington</Option>
                 </Select>
-                <Input label='Postal Code' type='number' placeholder='00000' required={ required } error={ error } />
-                <Select label='Country' defaultValue={ 1 } required={ required } error={ error }>
+                <Input label='Postal Code' type='number' placeholder='00000' required={ required } error={ error } tooltip={ tooltip } />
+                <Select label='Country' defaultValue={ 1 } required={ required } error={ error } tooltip={ tooltip }>
                   <Option value='us'>United States</Option>
                   <Option value='ca'>Canada</Option>
                   <Option value='other' disabled >Others</Option>
                 </Select>
               </Row>
               <Row>
-                <Picklist label='Lead Source' menuSize='large' required={ required } error={ error }>
+                <Picklist label='Lead Source' menuSize='large' required={ required } error={ error } tooltip={ tooltip }>
                   <PicklistItem value={ 1 } label='Web' />
                   <PicklistItem value={ 2 } >E-mail</PicklistItem>
                   <PicklistItem value={ 3 } disabled >Webinar</PicklistItem>
                   <PicklistItem value={ 4 }>Phone</PicklistItem>
                   <PicklistItem value={ 5 }>Event</PicklistItem>
                 </Picklist>
-                <DateInput label='Contact Date' placeholder='YYYY/MM/DD' dateFormat='YYYY/MM/DD' required={ required } error={ error } />
+                <DateInput label='Contact Date' placeholder='YYYY/MM/DD' dateFormat='YYYY/MM/DD' required={ required } error={ error } tooltip={ tooltip } />
               </Row>
               <Row cols={ 4 }>
-                <Lookup label='Related Type' data={ LOOKUP_DATA } required={ required } error={ error } cols={ 3 } />
+                <Lookup label='Related Type' data={ LOOKUP_DATA } required={ required } error={ error } cols={ 3 } tooltip={ tooltip } />
               </Row>
             </FieldSet>
             <FieldSet label='Other'>
               <Row>
-                <RadioGroup label='Gender' name='gender' required={ required } error={ error }>
+                <RadioGroup label='Gender' name='gender' required={ required } error={ error } tooltip={ tooltip }>
                   <Radio label='Male' value={ 1 } />
                   <Radio label='Female' value={ 2 } />
                   <Radio label='Other' value={ 3 } />
                 </RadioGroup>
-                <CheckboxGroup label='Lead Source' name='leadSource' required={ required } error={ error }>
+                <CheckboxGroup label='Lead Source' name='leadSource' required={ required } error={ error } tooltip={ tooltip }>
                   <Checkbox label='Web' value={ 1 } />
                   <Checkbox label='Email' value={ 2 } />
                   <Checkbox label='Phone' value={ 3 } />
