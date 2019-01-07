@@ -29,9 +29,9 @@ export default class Picklist extends Component {
   }
 
   onClick(e) {
-    const { onClick } = this.props;
-    if (onClick) onClick(e);
+    const { onDropDownClick } = this.props;
     this.setState((state => ({ opened: !state.opened })));
+    if (onDropDownClick) onDropDownClick(e);
   }
 
   onPicklistItemClick(item, e) {
@@ -177,6 +177,7 @@ export default class Picklist extends Component {
     delete pprops.noneText;
     delete pprops.align;
     delete pprops.focusOnOpen;
+    delete pprops.onDropDownClick;
     const picklistClassNames = classnames(className, 'slds-picklist');
     return (
       <div className={picklistClassNames} aria-expanded={this.state.opened}>
@@ -286,7 +287,7 @@ Picklist.propTypes = {
   selectedText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   defaultOpened: PropTypes.bool,
   onChange: PropTypes.func,
-  onClick: PropTypes.func,
+  onDropDownClick: PropTypes.func,
   onValueChange: PropTypes.func,
   onSelect: PropTypes.func,
   onComplete: PropTypes.func,
