@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 export default class Checkbox extends Component {
 
   renderCheckbox() {
-    const { className, label, ...props } = this.props;
+    const { className, label, tooltip, ...props } = this.props;
     const checkClassNames = classnames(className, 'slds-checkbox');
     delete props.initialValue;
     delete props.onUpdate;
@@ -23,13 +23,14 @@ export default class Checkbox extends Component {
         <input type='checkbox' { ...props } />
         <span className='slds-checkbox--faux'></span>
         <span className='slds-form-element__label'>{ label }</span>
+        <span>{tooltip}</span>
       </label>
     );
   }
 
   render() {
-    const { grouped, required, error, totalCols, cols, tooltip, ...props } = this.props;
-    const formElemProps = { required, error, totalCols, cols, tooltip };
+    const { grouped, required, error, totalCols, cols, ...props } = this.props;
+    const formElemProps = { required, error, totalCols, cols };
     return (
       grouped ?
         this.renderCheckbox(props) :
