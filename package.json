@@ -27,7 +27,7 @@
     "lint:src": "eslint --ext .js src/scripts/**",
     "lint:examples": "eslint --ext .js examples/client/**",
     "lint:test": "eslint --ext .js test/**",
-    "build": "babel -d lib/ src/"
+    "build": "env NODE_ENV=production babel -d lib/ src/"
   },
   "files": [
     "lib"
