@@ -62,7 +62,7 @@ export default class SearchButtonField extends React.Component {
       ],
       [
         '.search-button-field-cancel-container',
-        '{ position: absolute; display: flex; justify-content: center;' +
+        '{ position: relative; display: flex; justify-content: center;' +
         'align-items: center; height: 32px; width: 32px; }',
       ],
       [
