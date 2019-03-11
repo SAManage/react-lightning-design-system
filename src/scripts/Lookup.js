@@ -487,7 +487,7 @@ class LookupCandidateList extends Component {
     const filteredDate = data.filter(filter);
     const lookupMenuClassNames = classnames(
       'slds-lookup__menu',
-      { 'slds-hide': hidden, 'slds-show': !hidden && filteredDate}
+      { 'slds-hide': hidden, 'slds-show': !hidden && filteredDate.length}
     );
     return (
       <div
