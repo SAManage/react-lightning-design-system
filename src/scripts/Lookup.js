@@ -484,9 +484,10 @@ class LookupCandidateList extends Component {
 
   render() {
     const { data = [], hidden, loading, header, footer, renderMoreDetailsToggleButton, toggleClassName, filter = () => true } = this.props;
+    const filteredDate = data.filter(filter);
     const lookupMenuClassNames = classnames(
       'slds-lookup__menu',
-      { 'slds-hide': hidden, 'slds-show': !hidden }
+      { 'slds-hide': hidden, 'slds-show': !hidden && filteredDate}
     );
     return (
       <div
@@ -515,7 +516,7 @@ class LookupCandidateList extends Component {
             </li>}
           >
           {
-            data.filter(filter).map(this.renderCandidate.bind(this))
+            filteredDate.map(this.renderCandidate.bind(this))
           }
           </InfiniteScroll>
           {
